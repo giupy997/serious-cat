@@ -17,9 +17,9 @@
     --ink: #111114;
     --muted: #6b6b76;
     --line: #ececf0;
-    --fire: #ff5c1a;
-    --fire-soft: #fff1ea;
-    --meme-yellow: #ffe83d;
+    --fire: #ccff00;
+    --fire-soft: #f7ffcc;
+    --meme-yellow: #ccff00;
     --radius: 18px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,7 +53,7 @@
   nav a {
     color: var(--muted); text-decoration: none; font-size: 15px; margin-left: 22px; font-weight: 700;
   }
-  nav a:hover { color: var(--fire); text-decoration: underline wavy; }
+  nav a:hover { color: var(--ink); text-decoration: underline wavy; text-decoration-color: var(--fire); }
 
   /* ---------- hero ---------- */
   .hero { text-align: center; padding: 56px 0 48px; }
@@ -78,11 +78,14 @@
     font-size: clamp(46px, 8vw, 76px); letter-spacing: .01em; margin-top: 24px;
     line-height: 1.05;
   }
-  .hero h1 .serious { color: var(--fire); }
+  .hero h1 .serious {
+    color: var(--fire);
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 0 4px 0 var(--ink);
+  }
   .ticker {
     display: inline-block; margin-top: 10px;
     font-size: 16px; font-weight: 700; letter-spacing: .08em;
-    color: var(--fire); background: var(--fire-soft);
+    color: var(--ink); background: var(--fire);
     padding: 6px 16px; border-radius: 999px;
     transform: rotate(-1.5deg);
   }
@@ -102,7 +105,7 @@
   .btn:hover { transform: translateY(-2px) rotate(-1deg); }
   .btn-primary { background: var(--ink); color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); }
   .btn-ghost { background: #fff; color: var(--ink); border: 2px dashed #c9c9d4; }
-  .btn-ghost:hover { border-color: var(--fire); color: var(--fire); }
+  .btn-ghost:hover { border-color: var(--fire); color: var(--ink); background: var(--fire-soft); }
 
   /* ---------- CA ---------- */
   .ca-box {
@@ -123,7 +126,7 @@
     font-family: inherit;
     transition: background .15s;
   }
-  .copy-btn:hover { background: var(--fire); }
+  .copy-btn:hover { background: var(--fire); color: var(--ink); }
   .copy-btn.copied { background: #1a9e4b; }
   .ca-note { text-align: center; margin-top: 10px; font-size: 13.5px; color: var(--muted); }
 
@@ -136,8 +139,8 @@
   /* ---------- burn ---------- */
   .burn-hero {
     margin-top: 30px; text-align: center;
-    background: linear-gradient(180deg, #fff7f2, #fff);
-    border: 2px solid #ffe3d3; border-radius: 24px;
+    background: linear-gradient(180deg, #fbffe0, #fff);
+    border: 2px solid #e9ff9e; border-radius: 24px;
     padding: 40px 24px 34px;
   }
   .burn-hero .flame { font-size: 44px; }
@@ -145,6 +148,7 @@
     font-size: clamp(48px, 9vw, 84px); letter-spacing: .01em;
     color: var(--fire); line-height: 1.05; margin-top: 8px;
     font-variant-numeric: tabular-nums;
+    text-shadow: -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 2px 2px 0 var(--ink), 0 4px 0 var(--ink);
   }
   .burn-unit { font-size: 18px; color: var(--ink); margin-top: 8px; font-weight: 700; }
   .burn-unit-sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
@@ -154,7 +158,7 @@
   }
   .burn-bar .fill {
     height: 100%; width: 0%;
-    background: linear-gradient(90deg, #ffb347, var(--fire));
+    background: linear-gradient(90deg, #eaff80, var(--fire));
     border-radius: 999px; transition: width 1.2s ease;
   }
   .burn-bar-label { font-size: 13px; color: var(--muted); margin-top: 8px; }

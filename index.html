@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serious Cat — $SERIOUSCAT on Robinhood Chain</title>
+<meta name="description" content="the original picture of cash cat is serious cat. he is not joking. 0.7% of every trade gets burned. forever.">
+<meta property="og:title" content="Serious Cat — $SERIOUSCAT">
+<meta property="og:description" content="the original picture of cash cat is serious cat. he is not joking.">
+<meta property="og:image" content="https://cdn.dexscreener.com/cms/images/x-coFChfby2uFeW_?width=800&height=800&quality=90&format=webp">
+<link rel="icon" href="https://dd.dexscreener.com/ds-data/tokens/robinhood/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111114;
+    --muted: #6b6b76;
+    --line: #ececf0;
+    --fire: #ff5c1a;
+    --fire-soft: #fff1ea;
+    --meme-yellow: #ffe83d;
+    --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #ffffff;
+    color: var(--ink);
+    font-family: "Comic Neue", "Comic Sans MS", "Chalkboard SE", cursive;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display {
+    font-family: "Luckiest Guy", "Comic Sans MS", cursive;
+    font-weight: 400;
+    letter-spacing: .01em;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  .hl {
+    background: linear-gradient(180deg, transparent 55%, var(--meme-yellow) 55%);
+    padding: 0 3px;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+  .brand img { width: 36px; height: 36px; border-radius: 50%; transform: rotate(-6deg); }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: 15px; margin-left: 22px; font-weight: 700;
+  }
+  nav a:hover { color: var(--fire); text-decoration: underline wavy; }
+
+  /* ---------- hero ---------- */
+  .hero { text-align: center; padding: 56px 0 48px; }
+  .pfp-stack { position: relative; display: inline-block; }
+  .hero img.pfp {
+    width: 180px; height: 180px; border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 8px 40px rgba(0,0,0,.16);
+    transform: rotate(-3deg);
+    transition: transform .2s ease;
+  }
+  .hero img.pfp:hover { transform: rotate(3deg) scale(1.05); }
+  .pfp-stack .no-fun {
+    position: absolute; right: -30px; bottom: 4px;
+    background: var(--ink); color: #fff;
+    font-size: 13px; font-weight: 700;
+    padding: 6px 12px; border-radius: 999px;
+    transform: rotate(6deg);
+    white-space: nowrap;
+  }
+  .hero h1 {
+    font-size: clamp(46px, 8vw, 76px); letter-spacing: .01em; margin-top: 24px;
+    line-height: 1.05;
+  }
+  .hero h1 .serious { color: var(--fire); }
+  .ticker {
+    display: inline-block; margin-top: 10px;
+    font-size: 16px; font-weight: 700; letter-spacing: .08em;
+    color: var(--fire); background: var(--fire-soft);
+    padding: 6px 16px; border-radius: 999px;
+    transform: rotate(-1.5deg);
+  }
+  .tagline { margin-top: 20px; font-size: 21px; color: var(--ink); font-weight: 700; }
+  .tagline-sub { margin-top: 4px; font-size: 16.5px; color: var(--muted); }
+  .chain-badge { margin-top: 12px; font-size: 14.5px; color: var(--muted); }
+  .chain-badge b { color: var(--ink); }
+
+  .cta { margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; border-radius: 999px;
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    font-family: inherit;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-2px) rotate(-1deg); }
+  .btn-primary { background: var(--ink); color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.18); }
+  .btn-ghost { background: #fff; color: var(--ink); border: 2px dashed #c9c9d4; }
+  .btn-ghost:hover { border-color: var(--fire); color: var(--fire); }
+
+  /* ---------- CA ---------- */
+  .ca-box {
+    margin: 28px auto 0; max-width: 660px;
+    display: flex; align-items: center; gap: 10px;
+    background: #fafafc; border: 2px dashed #d5d5dd; border-radius: var(--radius);
+    padding: 12px 14px 12px 18px;
+    transform: rotate(-.5deg);
+  }
+  .ca-box .label { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
+  .ca-box code {
+    flex: 1; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink);
+  }
+  .copy-btn {
+    border: none; cursor: pointer; background: var(--ink); color: #fff;
+    font-size: 14px; font-weight: 700; padding: 9px 18px; border-radius: 999px;
+    font-family: inherit;
+    transition: background .15s;
+  }
+  .copy-btn:hover { background: var(--fire); }
+  .copy-btn.copied { background: #1a9e4b; }
+  .ca-note { text-align: center; margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- sections ---------- */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 34px; margin-bottom: 14px; }
+  .section-sub { color: var(--ink); max-width: 640px; font-size: 17px; }
+  .section-sub .small { color: var(--muted); font-size: 15px; }
+
+  /* ---------- burn ---------- */
+  .burn-hero {
+    margin-top: 30px; text-align: center;
+    background: linear-gradient(180deg, #fff7f2, #fff);
+    border: 2px solid #ffe3d3; border-radius: 24px;
+    padding: 40px 24px 34px;
+  }
+  .burn-hero .flame { font-size: 44px; }
+  .burn-amount {
+    font-size: clamp(48px, 9vw, 84px); letter-spacing: .01em;
+    color: var(--fire); line-height: 1.05; margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .burn-unit { font-size: 18px; color: var(--ink); margin-top: 8px; font-weight: 700; }
+  .burn-unit-sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .burn-bar {
+    margin: 28px auto 0; max-width: 520px; height: 16px;
+    background: #f2f2f6; border-radius: 999px; overflow: hidden;
+  }
+  .burn-bar .fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #ffb347, var(--fire));
+    border-radius: 999px; transition: width 1.2s ease;
+  }
+  .burn-bar-label { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .burn-stats {
+    margin-top: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    max-width: 660px; margin-left: auto; margin-right: auto;
+  }
+  .stat {
+    background: #fff; border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 16px 10px;
+  }
+  .stat:nth-child(1) { transform: rotate(-1deg); }
+  .stat:nth-child(3) { transform: rotate(1deg); }
+  .stat .v { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .live-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+  .live-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: #1a9e4b; margin-right: 6px;
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+  .how-burn { margin-top: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .how-card {
+    border: 2px solid var(--line); border-radius: var(--radius); padding: 20px;
+  }
+  .how-card:nth-child(2) { transform: rotate(.7deg); }
+  .how-card .emoji { font-size: 28px; }
+  .how-card h3 { font-size: 18px; margin: 10px 0 6px; }
+  .how-card p { font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+
+  /* ---------- socials ---------- */
+  .social-grid { margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .social-card {
+    display: flex; align-items: center; gap: 14px;
+    border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 18px 20px; text-decoration: none; color: var(--ink);
+    transition: border-color .15s, transform .12s;
+  }
+  .social-card:hover { border-color: var(--fire); transform: translateY(-2px) rotate(-.6deg); }
+  .social-card .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 21px; background: #f4f4f8; flex-shrink: 0;
+  }
+  .social-card .t { font-weight: 700; font-size: 16.5px; }
+  .social-card .d { font-size: 13.5px; color: var(--muted); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 34px 0 46px; text-align: center;
+    color: var(--muted); font-size: 14px;
+  }
+  footer .stamp { font-size: 16px; font-weight: 700; color: var(--ink); }
+  footer .disclaimer { max-width: 580px; margin: 12px auto 0; font-size: 12.5px; color: #9a9aa5; }
+
+  @media (max-width: 640px) {
+    .burn-stats, .how-burn, .social-grid { grid-template-columns: 1fr; }
+    nav { display: none; }
+    .pfp-stack .no-fun { right: -10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <img src="https://dd.dexscreener.com/ds-data/tokens/robinhood/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc.png?size=lg" alt="Serious Cat logo">
+      Serious Cat
+    </div>
+    <nav>
+      <a href="#burn">the incinerator 🔥</a>
+      <a href="#community">the council</a>
+      <a href="https://www.letscash.fun/token/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc" target="_blank" rel="noopener">buy</a>
+    </nav>
+  </header>
+
+  <section class="hero" style="border-top:none;">
+    <div class="pfp-stack">
+      <img class="pfp" src="https://cdn.dexscreener.com/cms/images/x-coFChfby2uFeW_?width=800&height=800&quality=90&format=webp" alt="Serious Cat">
+      <div class="no-fun">not amused.</div>
+    </div>
+    <h1 class="display">this cat is <span class="serious">SERIOUS</span></h1>
+    <div class="ticker">$SERIOUSCAT</div>
+    <p class="tagline">The Original Picture of Cash Cat is Serious Cat.</p>
+    <p class="tagline-sub">before the memes. before the money. there was <span class="hl">the stare</span>.</p>
+    <p class="chain-badge">deployed with a straight face on <b>Robinhood Chain</b> · trades vs ETH · contract verified (he checked. twice.)</p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="https://www.letscash.fun/token/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc" target="_blank" rel="noopener">😾 buy the cat</a>
+      <a class="btn btn-ghost" href="https://dexscreener.com/robinhood/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc" target="_blank" rel="noopener">📈 stare at the chart</a>
+    </div>
+
+    <div class="ca-box">
+      <span class="label">CA</span>
+      <code id="ca">0x196A3Ab28E1e854a040e57576cf94ff99d7F3Acc</code>
+      <button class="copy-btn" id="copyBtn" onclick="copyCA()">copy it</button>
+    </div>
+    <p class="ca-note">yes, that's the real one. the cat does not do fakes.</p>
+  </section>
+
+  <section id="burn">
+    <h2 class="display">🔥 the incinerator</h2>
+    <p class="section-sub">
+      the cat does not pay himself. <b>nobody collects creator fees. ever.</b><br>
+      instead, <span class="hl">0.7% of every single trade</span> automatically buys $SERIOUSCAT
+      and yeets it straight into the void. gone. deleted. unfollowed from existence.<br>
+      <span class="small">the burner is the registered fee recipient and cannot be changed. this is not a promise — it's the contract.</span>
+    </p>
+
+    <div class="burn-hero">
+      <div class="flame">🔥</div>
+      <div class="burn-amount display" id="burnedBig">—</div>
+      <div class="burn-unit">$SERIOUSCAT sent to the shadow realm</div>
+      <div class="burn-unit-sub">and they are never coming back</div>
+
+      <div class="burn-bar"><div class="fill" id="burnFill"></div></div>
+      <div class="burn-bar-label">progress toward absolute seriousness</div>
+
+      <div class="burn-stats">
+        <div class="stat"><div class="v" id="burnedPct">—</div><div class="k">of supply gone. poof.</div></div>
+        <div class="stat"><div class="v" id="currentSupply">—</div><div class="k">supply right now (shrinking)</div></div>
+        <div class="stat"><div class="v">1.00B</div><div class="k">supply at launch (rip)</div></div>
+      </div>
+
+      <div class="live-note"><span class="live-dot"></span>numbers read live from the Robinhood Chain — the cat refuses to fake stats</div>
+    </div>
+
+    <div class="how-burn">
+      <div class="how-card">
+        <div class="emoji">💸</div>
+        <h3>1% tax. that's it.</h3>
+        <p>every buy and sell pays 1% in ETH. 0.3% keeps the lights on at the platform, 0.7% feeds the fire.</p>
+      </div>
+      <div class="how-card">
+        <div class="emoji">🤖</div>
+        <h3>the burn is automatic</h3>
+        <p>a machine buys the cat's own token and destroys it. no human hands. no "trust me bro". anyone can trigger it.</p>
+      </div>
+      <div class="how-card">
+        <div class="emoji">📉</div>
+        <h3>supply only goes down</h3>
+        <p>number of tokens: shrinking. seriousness of cat: constant. this is the way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="community">
+    <h2 class="display">the council of serious business</h2>
+    <p class="section-sub">no jokes allowed. okay maybe some jokes. the cat will decide.</p>
+    <div class="social-grid">
+      <a class="social-card" href="https://x.com/SeriousCatRH" target="_blank" rel="noopener">
+        <div class="icon">𝕏</div>
+        <div><div class="t">X / Twitter</div><div class="d">@SeriousCatRH — serious posts only</div></div>
+      </a>
+      <a class="social-card" href="https://t.me/seriouscatrh" target="_blank" rel="noopener">
+        <div class="icon">✈️</div>
+        <div><div class="t">Telegram</div><div class="d">t.me/seriouscatrh — the war room</div></div>
+      </a>
+      <a class="social-card" href="https://dexscreener.com/robinhood/0x196a3ab28e1e854a040e57576cf94ff99d7f3acc" target="_blank" rel="noopener">
+        <div class="icon">📊</div>
+        <div><div class="t">DexScreener</div><div class="d">candles. green ones, preferably.</div></div>
+      </a>
+      <a class="social-card" href="https://knowyourmeme.com/memes/serious-cat" target="_blank" rel="noopener">
+        <div class="icon">😾</div>
+        <div><div class="t">Know Your Meme</div><div class="d">the lore. est. 2006. respect your elders.</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="stamp">Serious Cat ($SERIOUSCAT) · Robinhood Chain · est. with a straight face</div>
+    <p class="disclaimer">
+      this is a community meme token. the cat is serious — you should still be sensible.
+      nothing here is financial advice. crypto is volatile: never invest more than you can afford to lose.
+    </p>
+  </footer>
+</div>
+
+<script>
+  const CA = '0x196A3Ab28E1e854a040e57576cf94ff99d7F3Acc';
+  const RPC = 'https://rpc.mainnet.chain.robinhood.com';
+  const INITIAL_SUPPLY = 1e9; // 1B tokens at launch
+
+  function copyCA() {
+    navigator.clipboard.writeText(CA).then(() => {
+      const b = document.getElementById('copyBtn');
+      b.textContent = 'copied 😾';
+      b.classList.add('copied');
+      setTimeout(() => { b.textContent = 'copy it'; b.classList.remove('copied'); }, 1600);
+    });
+  }
+
+  function fmt(n, dec = 2) {
+    if (n >= 1e9) return (n / 1e9).toFixed(dec) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(dec) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(dec) + 'K';
+    return n.toFixed(dec);
+  }
+
+  let displayed = 0;
+  function animateTo(el, target) {
+    const start = displayed, t0 = performance.now(), dur = 1200;
+    function step(t) {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = start + (target - start) * eased;
+      el.textContent = fmt(val, 2);
+      if (p < 1) requestAnimationFrame(step); else displayed = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  async function updateBurn() {
+    try {
+      const res = await fetch(RPC, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call',
+          params: [{ to: CA, data: '0x18160ddd' }, 'latest'] })
+      });
+      const j = await res.json();
+      if (!j.result || j.result === '0x') return;
+      const supply = Number(BigInt(j.result)) / 1e18;
+      const burned = INITIAL_SUPPLY - supply;
+      const pct = burned / INITIAL_SUPPLY * 100;
+
+      animateTo(document.getElementById('burnedBig'), burned);
+      document.getElementById('burnedPct').textContent = pct.toFixed(2) + '%';
+      document.getElementById('currentSupply').textContent = fmt(supply, 2);
+      document.getElementById('burnFill').style.width = Math.max(pct, 1.5) + '%';
+    } catch (e) { /* keep last values */ }
+  }
+
+  updateBurn();
+  setInterval(updateBurn, 12000);
+</script>
+
+</body>
+</html>

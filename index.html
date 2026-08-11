@@ -163,7 +163,7 @@
   }
   .burn-bar-label { font-size: 13px; color: var(--muted); margin-top: 8px; }
   .burn-stats {
-    margin-top: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
     max-width: 660px; margin-left: auto; margin-right: auto;
   }
   .stat {
@@ -172,6 +172,13 @@
   }
   .stat:nth-child(1) { transform: rotate(-1deg); }
   .stat:nth-child(3) { transform: rotate(1deg); }
+  .stat:nth-child(4) { transform: rotate(-.6deg); }
+  .cashcat-strip {
+    margin: 22px auto 0; max-width: 660px;
+    background: #fff; border: 2px dashed #c9c9d4; border-radius: var(--radius);
+    padding: 16px 20px; font-size: 15.5px; transform: rotate(.5deg);
+  }
+  .cashcat-strip b { font-variant-numeric: tabular-nums; }
   .stat .v { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
   .stat .k { font-size: 13px; color: var(--muted); margin-top: 2px; }
   .live-note { margin-top: 18px; font-size: 13px; color: var(--muted); }
@@ -281,19 +288,24 @@
       <div class="burn-bar-label">progress toward absolute seriousness</div>
 
       <div class="burn-stats">
+        <div class="stat"><div class="v" id="burnedUsd">—</div><div class="k">street value of the ashes (at current price)</div></div>
         <div class="stat"><div class="v" id="burnedPct">—</div><div class="k">of supply gone. poof.</div></div>
         <div class="stat"><div class="v" id="currentSupply">—</div><div class="k">supply right now (shrinking)</div></div>
         <div class="stat"><div class="v">1.00B</div><div class="k">supply at launch (rip)</div></div>
       </div>
 
-      <div class="live-note"><span class="live-dot"></span>numbers read live from the Robinhood Chain — the cat refuses to fake stats</div>
+      <div class="cashcat-strip">
+        🐈‍⬛ and the other 0.3%? it buys back <b>$CASHCAT</b> — <b id="cashcatEth">—</b> ETH fed to the elder cat so far. respect the lineage.
+      </div>
+
+      <div class="live-note"><span class="live-dot"></span>live data from Robinhood Chain, letscash.fun &amp; dexscreener — the cat refuses to fake stats</div>
     </div>
 
     <div class="how-burn">
       <div class="how-card">
         <div class="emoji">💸</div>
         <h3>1% tax. that's it.</h3>
-        <p>every buy and sell pays 1% in ETH. 0.3% keeps the lights on at the platform, 0.7% feeds the fire.</p>
+        <p>every buy and sell pays 1% in ETH. 0.7% feeds the fire, 0.3% buys back $CASHCAT. even the fees are cats.</p>
       </div>
       <div class="how-card">
         <div class="emoji">🤖</div>
@@ -374,25 +386,54 @@
     requestAnimationFrame(step);
   }
 
-  async function updateBurn() {
-    try {
-      const res = await fetch(RPC, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call',
-          params: [{ to: CA, data: '0x18160ddd' }, 'latest'] })
-      });
-      const j = await res.json();
-      if (!j.result || j.result === '0x') return;
-      const supply = Number(BigInt(j.result)) / 1e18;
-      const burned = INITIAL_SUPPLY - supply;
-      const pct = burned / INITIAL_SUPPLY * 100;
+  const LETSCASH_API = 'https://api.letscash.fun/api/tokens/' + CA + '?surface=current';
+  const DEXSCREENER_API = 'https://api.dexscreener.com/latest/dex/tokens/' + CA;
+  const CASHCAT_BUYBACK_SHARE = 0.003; // 0.3% of every trade buys back $CASHCAT
 
-      animateTo(document.getElementById('burnedBig'), burned);
-      document.getElementById('burnedPct').textContent = pct.toFixed(2) + '%';
-      document.getElementById('currentSupply').textContent = fmt(supply, 2);
-      document.getElementById('burnFill').style.width = Math.max(pct, 1.5) + '%';
-    } catch (e) { /* keep last values */ }
+  async function fetchSupplyRPC() {
+    const res = await fetch(RPC, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call',
+        params: [{ to: CA, data: '0x18160ddd' }, 'latest'] })
+    });
+    const j = await res.json();
+    if (!j.result || j.result === '0x') throw new Error('no result');
+    return Number(BigInt(j.result)) / 1e18;
+  }
+
+  async function updateBurn() {
+    let supply = null, cashcatEth = null;
+    try {
+      const lc = await (await fetch(LETSCASH_API)).json();
+      supply = lc.circulatingSupply;
+      if (lc.volumeEth && lc.volumeEth.allTime) {
+        cashcatEth = lc.volumeEth.allTime * CASHCAT_BUYBACK_SHARE;
+      }
+    } catch (e) { /* fall back to RPC below */ }
+
+    try {
+      if (!supply) supply = await fetchSupplyRPC();
+    } catch (e) { return; }
+
+    const burned = INITIAL_SUPPLY - supply;
+    const pct = burned / INITIAL_SUPPLY * 100;
+
+    animateTo(document.getElementById('burnedBig'), burned);
+    document.getElementById('burnedPct').textContent = pct.toFixed(2) + '%';
+    document.getElementById('currentSupply').textContent = fmt(supply, 2);
+    document.getElementById('burnFill').style.width = Math.max(pct, 1.5) + '%';
+    if (cashcatEth !== null) {
+      document.getElementById('cashcatEth').textContent = '~' + cashcatEth.toFixed(2);
+    }
+
+    try {
+      const ds = await (await fetch(DEXSCREENER_API)).json();
+      const price = parseFloat(ds.pairs && ds.pairs[0] && ds.pairs[0].priceUsd);
+      if (price > 0) {
+        document.getElementById('burnedUsd').textContent = '$' + fmt(burned * price, 1);
+      }
+    } catch (e) { /* leave placeholder */ }
   }
 
   updateBurn();
